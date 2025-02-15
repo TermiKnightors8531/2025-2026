@@ -17,6 +17,8 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+
 import frc.robot.Configs;
 
 public class MAXSwerveModule {
@@ -31,6 +33,8 @@ public class MAXSwerveModule {
 
   private double m_chassisAngularOffset = 0;
   private SwerveModuleState m_desiredState = new SwerveModuleState(0.0, new Rotation2d());
+
+  private final ADXRS450_Gyro m_gyro = new ADXRS450_Gyro(); // or your gyro class
 
   /**
    * Constructs a MAXSwerveModule and configures the driving and turning motor,
@@ -47,6 +51,8 @@ public class MAXSwerveModule {
 
     m_drivingClosedLoopController = m_drivingSpark.getClosedLoopController();
     m_turningClosedLoopController = m_turningSpark.getClosedLoopController();
+
+    m_gyro.reset();
 
     // Apply the respective configurations to the SPARKS. Reset parameters before
     // applying the configuration to bring the SPARK to a known good state. Persist
